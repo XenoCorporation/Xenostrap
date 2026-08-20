@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RootNamespace>Xenostrap.Platform.Linux</RootNamespace>
+		<AssemblyName>Xenostrap.Platform.Linux</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Xenostrap.Core\Xenostrap.Core.csproj" />
+		<ProjectReference Include="..\Xenostrap.Platform.Abstractions\Xenostrap.Platform.Abstractions.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Tomlyn" Version="2.10.1" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Xenostrap
+Exec=xenostrap %u
+TryExec=xenostrap
+Icon=xenostrap
+Terminal=false
+Categories=Game;
+StartupNotify=true
+StartupWMClass=Xenostrap
+MimeType=x-scheme-handler/roblox;x-scheme-handler/roblox-player;x-scheme-handler/roblox-studio;x-scheme-handler/roblox-studio-auth;

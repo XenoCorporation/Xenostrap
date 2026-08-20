@@ -1,0 +1,14 @@
+<Project>
+
+	<PropertyGroup>
+		<XenostrapVersion>0.1.0.0</XenostrapVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version Condition="'$(Version)' == ''">$(XenostrapVersion)</Version>
+		<FileVersion>$(Version)</FileVersion>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<InformationalVersion>$(Version)</InformationalVersion>
+	</PropertyGroup>
+
+</Project>

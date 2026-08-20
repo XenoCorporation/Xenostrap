@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<RootNamespace>Xenostrap.Platform.MacOS</RootNamespace>
+		<AssemblyName>Xenostrap.Platform.MacOS</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Xenostrap.Core\Xenostrap.Core.csproj" />
+		<ProjectReference Include="..\Xenostrap.Platform.Abstractions\Xenostrap.Platform.Abstractions.csproj" />
+	</ItemGroup>
+</Project>

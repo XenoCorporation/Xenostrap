@@ -1,0 +1,163 @@
+﻿<Project Sdk="LibreWPF.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<OutputType>WinExe</OutputType>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<SatelliteResourceLanguages>en-US;vi</SatelliteResourceLanguages>
+		<PublishTrimmed>false</PublishTrimmed>
+		<SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
+		<BaseOutputPath Condition="'$(RuntimeIdentifier)' != ''">bin-$(RuntimeIdentifier)\</BaseOutputPath>
+		<AssemblyName>Xenostrap</AssemblyName>
+		<RootNamespace>Xenostrap</RootNamespace>
+		<EnableDefaultItems>false</EnableDefaultItems>
+		<DefineConstants>$(DefineConstants);CROSSPLAT</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ProGpuWpfUsePortableFrameworkReferences>true</ProGpuWpfUsePortableFrameworkReferences>
+		<ProGpuWpfSystemSecurityCryptographyXmlVersion>10.0.11</ProGpuWpfSystemSecurityCryptographyXmlVersion>
+		<ProGpuWpfUsePortableWinFormsCompat>false</ProGpuWpfUsePortableWinFormsCompat>
+		<ProGpuWpfUseLibreWinForms>false</ProGpuWpfUseLibreWinForms>
+		<NoWarn>$(NoWarn);CS0067;CS0105;CS0108;CS0168;CS0169;CS0219;CS0414;CS0649;CS4014;CS8305;CS8321;CS8600;CS8601;CS8602;CS8603;CS8604;CS8612;CS8618;CS8619;CS8620;CS8622;CS8625;CS8632;CS8669;CS8670;CS8714;CA1416;MSB3277;MSB3825;NU1510;NU1701;NU1702;PInvoke004;SYSLIB0014;SYSLIB1096;WFDEV004</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('linux'))">
+		<PublishSingleFile>true</PublishSingleFile>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+	</PropertyGroup>
+
+	<Target Name="BundleManagedTransportAssets" BeforeTargets="_ComputeFilesToBundle" DependsOnTargets="_ProGpuWpfSdkPublishManagedTransportRuntimeAssets" Condition="'$(PublishSingleFile)' == 'true'" />
+
+	<ItemGroup>
+		<TrimmerRootAssembly Include="Xenostrap" />
+		<TrimmerRootAssembly Include="PresentationFramework" />
+		<TrimmerRootAssembly Include="PresentationCore" />
+		<TrimmerRootAssembly Include="PresentationUI" />
+		<TrimmerRootAssembly Include="WindowsBase" />
+		<TrimmerRootAssembly Include="System.Xaml" />
+		<TrimmerRootAssembly Include="UIAutomationProvider" />
+		<TrimmerRootAssembly Include="UIAutomationTypes" />
+		<TrimmerRootAssembly Include="Wpf.Ui" />
+		<TrimmerRootAssembly Include="Newtonsoft.Json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="*.cs" />
+		<Compile Include="..\Xenostrap.App\**\*.cs" Exclude="..\Xenostrap.App\obj\**;..\Xenostrap.App\obj-*\**;..\Xenostrap.App\bin\**;..\Xenostrap.App\bin-*\**;..\Xenostrap.App\UI\Elements\RobloxWeb\**;..\Xenostrap.App\UI\Elements\Controls\InlineVideoPlayer.xaml.cs;..\Xenostrap.App\UI\Elements\Bootstrapper\CustomDialog*.cs;..\Xenostrap.App\UI\Elements\Bootstrapper\ProgressDialog*.cs;..\Xenostrap.App\UI\Elements\Bootstrapper\LegacyDialog*.cs;..\Xenostrap.App\UI\Elements\Bootstrapper\VistaDialog*.cs;..\Xenostrap.App\UI\Elements\Bootstrapper\Base\WinFormsDialogBase.cs;..\Xenostrap.App\Integrations\RiShade\RiShadeWgc.cs;..\Xenostrap.App\Integrations\RiShade\RiShadeWinRtStubs*.cs" />
+		<Page Include="..\Xenostrap.App\**\*.xaml" Exclude="..\Xenostrap.App\obj\**;..\Xenostrap.App\obj-*\**;..\Xenostrap.App\bin\**;..\Xenostrap.App\bin-*\**;..\Xenostrap.App\App.xaml;..\Xenostrap.App\UI\Elements\RobloxWeb\**;..\Xenostrap.App\UI\Elements\Controls\InlineVideoPlayer.xaml;..\Xenostrap.App\UI\Elements\Bootstrapper\CustomDialog.xaml;..\Xenostrap.App\UI\Elements\About\MainWindow.xaml;..\Xenostrap.App\UI\Elements\Installer\MainWindow.xaml" />
+		<Page Remove="..\Xenostrap.App\UI\Elements\Installer\Pages\ChannelPage.xaml" />
+		<Page Include="Xaml\AboutMainWindow.xaml" />
+		<Page Include="Xaml\InstallerMainWindow.xaml" />
+		<Page Include="Xaml\InstallerChannelPage.xaml" />
+		<ApplicationDefinition Include="..\Xenostrap.App\App.xaml">
+			<Link>App.xaml</Link>
+		</ApplicationDefinition>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="..\Xenostrap.App\Resources\**\*" Exclude="..\Xenostrap.App\Resources\**\*.cs">
+			<Link>Resources\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Xenostrap.App\Properties\*.resx">
+			<Link>Properties\%(Filename)%(Extension)</Link>
+		</EmbeddedResource>
+		<EmbeddedResource Include="..\Xenostrap.App\UI\Style\*.xshd">
+			<Link>UI\Style\%(Filename)%(Extension)</Link>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="..\Xenostrap.App\Xenostrap.ico">
+			<Link>Xenostrap.ico</Link>
+		</Resource>
+		<Resource Include="..\Xenostrap.App\Xenostrap.png">
+			<Link>Xenostrap.png</Link>
+		</Resource>
+		<Resource Include="..\Xenostrap.App\Resources\**\*.ttf;..\Xenostrap.App\Resources\**\*.png;..\Xenostrap.App\Resources\**\*.jpg;..\Xenostrap.App\Resources\**\*.ico">
+			<Link>Resources\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="'$(RuntimeIdentifier)' == 'linux-x64' Or '$(RuntimeIdentifier)' == 'linux-arm64'" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ably.io" Version="1.2.18" />
+		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
+		<PackageReference Include="Emoji.Wpf" Version="0.3.4" />
+		<PackageReference Include="Markdig" Version="1.3.2" />
+		<PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" Condition="'$(RuntimeIdentifier)' == 'linux-x64' Or '$(RuntimeIdentifier)' == 'linux-arm64'" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
+		<PackageReference Include="Microsoft.ML.OnnxRuntime.Managed" Version="1.28.0" />
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.298">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="NAudio" Version="2.3.0" />
+		<PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="Nefarius.ViGEm.Client" Version="1.21.256" />
+		<PackageReference Include="NVorbis" Version="0.10.5" />
+		<PackageReference Include="OggVorbisEncoder" Version="1.2.2" />
+		<PackageReference Include="securifybv.ShellLink" Version="0.1.0" />
+		<PackageReference Include="SharpZipLib" Version="1.4.2" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+		<PackageReference Include="System.Drawing.Common" Version="10.0.3" />
+		<PackageReference Include="System.Management" Version="10.0.10" />
+		<PackageReference Include="System.Resources.Extensions" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="3.1.16" ExcludeAssets="native;build;buildTransitive" />
+		<PackageReference Include="Vortice.D3DCompiler" Version="3.8.3" />
+		<PackageReference Include="Vortice.Direct3D11" Version="3.8.3" />
+		<PackageReference Include="Vortice.DirectComposition" Version="3.8.3" />
+		<PackageReference Include="Vortice.DXGI" Version="3.8.3" />
+		<PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+		<PackageReference Include="XamlAnimatedGif" Version="2.3.2" />
+		<PackageReference Include="Openize.Drako" Version="26.2.0" />
+		<PackageReference Include="ZstdSharp.Port" Version="0.8.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="..\Xenostrap.App\NativeMethods.txt" Link="NativeMethods.txt" />
+		<ProjectReference Include="..\Xenostrap.Core\Xenostrap.Core.csproj" />
+		<ProjectReference Include="..\Xenostrap.Platform.Abstractions\Xenostrap.Platform.Abstractions.csproj" />
+		<ProjectReference Include="..\Xenostrap.Platform.Linux\Xenostrap.Platform.Linux.csproj" />
+		<ProjectReference Include="..\Xenostrap.Platform.MacOS\Xenostrap.Platform.MacOS.csproj" />
+		<ProjectReference Include="..\..\external\wpfui\src\Wpf.Ui\Wpf.Ui.Cross.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="Xenostrap.Models.Attributes.BuildMetadataAttribute">
+			<_Parameter1>1970-01-01T00:00:00Z</_Parameter1>
+			<_Parameter2></_Parameter2>
+			<_Parameter3>$(CommitHash)</_Parameter3>
+			<_Parameter4>$(CommitRef)</_Parameter4>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<Target Name="StripWindowsDesktopFrameworkRefs" AfterTargets="ResolvePackageAssets" BeforeTargets="AddTransitiveFrameworkReferences">
+		<ItemGroup>
+			<TransitiveFrameworkReference Remove="@(TransitiveFrameworkReference)" Condition="$([System.String]::Copy('%(TransitiveFrameworkReference.Identity)').Contains('WindowsDesktop'))" />
+		</ItemGroup>
+	</Target>
+
+	<Target Name="StripWindowsDesktopDirectRefs" BeforeTargets="ProcessFrameworkReferences">
+		<ItemGroup>
+			<FrameworkReference Remove="@(FrameworkReference)" Condition="$([System.String]::Copy('%(FrameworkReference.Identity)').Contains('WindowsDesktop'))" />
+		</ItemGroup>
+	</Target>
+
+	<Target Name="StripPublishExtras" AfterTargets="ComputeResolvedFilesToPublishList">
+		<ItemGroup>
+			<ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(ResolvedFileToPublish.Extension)' == '.xml' Or '%(ResolvedFileToPublish.Extension)' == '.pdb'" />
+			<ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="$([System.String]::Copy('%(ResolvedFileToPublish.Filename)').StartsWith('libmscordaccore')) Or $([System.String]::Copy('%(ResolvedFileToPublish.Filename)').StartsWith('libmscordbi')) Or $([System.String]::Copy('%(ResolvedFileToPublish.Filename)').StartsWith('mscordaccore')) Or $([System.String]::Copy('%(ResolvedFileToPublish.Filename)').StartsWith('mscordbi'))" />
+		</ItemGroup>
+	</Target>
+
+</Project>
