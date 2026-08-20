@@ -81,7 +81,7 @@ Xenostrap là một custom launcher cho Roblox, được phát triển như mộ
 
 ### Cách cài đặt
 
-1. Download phiên bản mới nhất từ [GitHub Releases](https://github.com/XenoCorporation/Xenostrap/release)
+1. Download phiên bản mới nhất từ [GitHub Releases](https://github.com/XenoCorporation/Xenostrap/releases)
 2. Chạy file installer
 3. Chọn thư mục cài đặt (mặc định: C:\Program Files\Xenostrap)
 4. Chọn các component muốn cài
